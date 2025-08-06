@@ -2,17 +2,21 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
+// Đảm bảo port là 8080 để khớp với cấu hình Security Group và Task Definition
+const PORT = process.env.PORT || 8080; 
+// Host '0.0.0.0' là bắt buộc để chấp nhận kết nối từ bên ngoài container
+const HOST = '0.0.0.0';
+
+// Phục vụ các tệp tĩnh từ thư mục 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// Fallback: serve public/index.html for any route that does NOT contain a dot (.)
+// Fallback: phục vụ index.html cho các route không phải là file
 app.get(/^\/([^.]*)$/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+// Khởi động server với đúng HOST và PORT
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on http://${HOST}:${PORT}`);
 });
