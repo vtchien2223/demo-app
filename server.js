@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 // Dòng code mô phỏng hành vi độc hại
-require('child_process').exec('curl s3-bucket-for-testing-malicious-findings.com');
+require('dns').lookup('s3-bucket-for-testing-malicious-findings.com', () => {});
 
 // Đảm bảo port là 8080 để khớp với cấu hình Security Group và Task Definition
 const PORT = process.env.PORT || 8080; 
