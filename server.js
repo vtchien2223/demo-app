@@ -3,9 +3,6 @@ const path = require('path');
 
 const app = express();
 
-// Dòng code mô phỏng hành vi độc hại
-require('dns').lookup('s3-bucket-for-testing-malicious-findings.com', () => {});
-
 // Đảm bảo port là 8080 để khớp với cấu hình Security Group và Task Definition
 const PORT = process.env.PORT || 8080; 
 // Host '0.0.0.0' là bắt buộc để chấp nhận kết nối từ bên ngoài container
